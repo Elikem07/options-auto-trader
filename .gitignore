@@ -52,3 +52,4 @@ signals*.json
 .claude/
 # Launcher contains a local absolute path; see README for how to run.
 *.command
+dashboard_original.py
