@@ -1,0 +1,54 @@
+# ── Secrets & local configuration ─────────────────────────────────────────────
+# Real strategy parameters live here and must never be committed.
+# Only the *.example.toml files belong in version control.
+config/strategy.toml
+config/playbook.toml
+config/costs.toml
+*.local.toml
+.env
+.env.*
+!.env.example
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ── Market data, caches & run artifacts ──────────────────────────────────────
+# Vendor data is large and often licensed; regenerate it locally.
+data/
+historical_cache/
+*.csv
+*.parquet
+*.feather
+*.db
+*.sqlite3
+
+# ── Logs & generated reports ─────────────────────────────────────────────────
+*.log
+*.out
+*.html
+optimization_results.json
+best_config.json
+
+# ── OS / editors ─────────────────────────────────────────────────────────────
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# ── Personal trading records & local tooling ─────────────────────────────────
+# Real trade history: entry/exit levels, outcomes, R-multiples.
+trades.json
+rejected_signals.csv
+signals*.json
+.claude/
+# Launcher contains a local absolute path; see README for how to run.
+*.command

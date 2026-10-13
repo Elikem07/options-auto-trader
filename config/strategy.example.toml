@@ -1,0 +1,122 @@
+# Options auto-trader — EXAMPLE / PLACEHOLDER PARAMETERS
+#
+# Committed to the repository to document the configuration schema. Every
+# numeric value below is a neutral placeholder, not a tradeable setting.
+#
+# To run with real parameters:
+#   cp config/strategy.example.toml config/strategy.toml
+# then edit config/strategy.toml, which is gitignored.
+#
+# DRY_RUN defaults to true here and in the example. Flipping it to false
+# places real orders against whichever TWS port is configured.
+
+[universe]
+# Symbols the scanner polls.
+watchlist = ["SPY", "QQQ"]
+
+# Tickers that list same-day expirations, and those with Mon/Wed/Fri cycles.
+# Verify against your broker's contract data before trading 0DTE.
+daily_0dte = ["SPY", "QQQ"]
+mwf_0dte = []
+
+[setup]
+# Name of the one setup allowed to trade live, and the permitted score band.
+validated_setup = "PLACEHOLDER — name your validated setup"
+min_score = 99   # PLACEHOLDER — nothing trades at this value
+max_score = 99   # PLACEHOLDER
+
+[session]
+# Exchange-local times (America/New_York), 24h "HH:MM".
+market_open      = "09:30"
+market_close     = "16:00"
+scan_start       = "09:25"
+premarket_cutoff = "09:30"
+power_windows = [
+    { start = "09:30", end = "10:30" },
+    { start = "15:00", end = "16:00" },
+]
+
+[volume]
+avg_lookback    = 20
+avg_min_periods = 5
+
+[breakout]
+min_vol_ratio = 1.0   # PLACEHOLDER
+target1_r     = 1.0   # PLACEHOLDER
+target2_r     = 1.0   # PLACEHOLDER
+
+[volume_divergence]
+lookback_bars      = 5
+min_declining_bars = 1     # PLACEHOLDER
+target1_r          = 1.0   # PLACEHOLDER
+target2_r          = 1.0   # PLACEHOLDER
+level_proximity    = 0.01  # PLACEHOLDER
+
+[opening_range]
+window_bars        = 8
+max_bars_elapsed   = 30
+min_vol_ratio      = 1.0   # PLACEHOLDER
+target1_range_mult = 1.0   # PLACEHOLDER
+target2_range_mult = 1.0   # PLACEHOLDER
+
+[vwap_divergence]
+lookback_bars      = 4
+min_declining_bars = 1     # PLACEHOLDER
+vwap_proximity     = 0.01  # PLACEHOLDER
+target1_r          = 1.0   # PLACEHOLDER
+target2_r          = 1.0   # PLACEHOLDER
+
+[scoring]
+# Confluence points per condition.
+vwap_divergence_setup   = 0
+volume_divergence_setup = 0
+market_aligned          = 0
+no_whipsaw              = 0
+in_power_hour           = 0
+
+[scoring.reference]
+nasdaq_proxy   = "QQQ"
+default_proxy  = "SPY"
+nasdaq_symbols = ["QQQ", "TQQQ", "SQQQ", "SOXX", "SMH"]
+
+[whipsaw]
+lookback_bars = 4
+
+[execution]
+# Order placement and risk limits. All PLACEHOLDERS.
+dry_run               = true    # MUST be true unless you intend live orders
+tws_port              = 7497    # 7497 paper | 7496 live
+contracts             = 1
+max_trades_day        = 0       # PLACEHOLDER — zero blocks all trading
+max_daily_loss        = 0.0     # PLACEHOLDER
+max_premium_per_trade = 0.0     # PLACEHOLDER
+max_concurrent        = 0       # PLACEHOLDER
+entry_offset          = 0.0     # PLACEHOLDER
+fill_timeout          = 60
+cooldown_min          = 0       # PLACEHOLDER
+close_before          = "15:50"
+no_new_after          = "15:30"
+max_hold_bars         = 0       # PLACEHOLDER
+use_alpaca_fallback   = false
+
+[alpaca_scanner]
+# Standalone Alpaca-based scanner (scanner_alpaca.py). PLACEHOLDERS.
+trade_size_usd = 0     # PLACEHOLDER — zero sizes no position
+watchlist = []         # empty = fall back to [universe].watchlist
+
+[backtest]
+# Backtest filters. PLACEHOLDERS.
+min_score     = 99     # PLACEHOLDER
+max_stop      = 0.0    # PLACEHOLDER
+lookback_days = 504
+cooldown_bars = 0      # PLACEHOLDER
+risk_free     = 0.0
+
+[simulation]
+# Monte Carlo / cost-analysis settings.
+n_sims           = 5000
+starting_capital = 1000
+contracts        = 1
+min_score        = 0
+tick_size        = 1.00
+min_trades_for_confidence = 15
